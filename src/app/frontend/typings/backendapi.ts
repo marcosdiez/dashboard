@@ -505,7 +505,51 @@ export interface SecretDetail extends ResourceDetail {
 
 export type ServiceAccountDetail = ResourceDetail;
 
-export type IngressDetail = ResourceDetail;
+export interface IngressDetail extends ResourceDetail {
+  endpoints: Endpoint[];
+  spec: IngressSpec;
+}
+
+export interface IngressSpec {
+  defaultBackend: IngressService;
+  rules?: IngressSpecRule[];
+}
+
+export interface IngressService {
+  service: IngressServiceDetail;
+  resource?: IngressSpecRuleHttpPathBackendResource;
+}
+
+export interface IngressServiceDetail {
+  name: string;
+  port: IngressServicePort;
+}
+
+export interface IngressServicePort {
+  number?: number;
+  name?: string;
+}
+
+export interface IngressSpecRule {
+  host?: string;
+  http: IngressSpecRuleHttp;
+}
+
+export interface IngressSpecRuleHttp {
+  paths: IngressSpecRuleHttpPath[];
+}
+
+export interface IngressSpecRuleHttpPath {
+  path: string;
+  pathType: string;
+  backend: IngressService;
+}
+
+export interface IngressSpecRuleHttpPathBackendResource {
+  apiGroup: string;
+  kind: string;
+  name: string;
+}
 
 export interface NetworkPolicyDetail extends ResourceDetail {
   podSelector: LabelSelector;

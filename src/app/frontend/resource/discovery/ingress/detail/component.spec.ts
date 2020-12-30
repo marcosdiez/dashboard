@@ -51,6 +51,48 @@ class MiniTestComponent {
     },
     typeMeta: {kind: 'Ingress'},
     errors: [],
+    endpoints: [],
+    spec: {
+      rules: [
+        {
+          http: {
+            paths: [
+              {
+                path: '/testpath',
+                pathType: 'Prefix',
+                backend: {
+                  service: {
+                    name: 'test',
+                    port: {
+                      number: 80
+                    }
+                  }
+                },
+              },
+            ],
+          },
+        },
+        {
+          host: 'foo.bar.com',
+          http: {
+            paths: [
+              {
+                path: '/bar',
+                pathType: 'Prefix',
+                backend: {
+                  service: {
+                    name: 'fooBarService',
+                    port: {
+                      number: 80
+                    }
+                  }
+                },
+              },
+            ],
+          },
+        },
+      ],
+    },
   };
 }
 
@@ -71,6 +113,49 @@ class MaxiTestComponent {
     },
     typeMeta: {kind: 'Ingress'},
     errors: [],
+    endpoints: [],
+    spec: {
+      rules: [
+        {
+          host: 'foox.bar.com',
+          http: {
+            paths: [
+              {
+                path: '/',
+                pathType: 'Prefix',
+                backend: {
+                  service: {
+                    name: 'fooxBarService',
+                    port: {
+                      name: 'fooxBarName'
+                    }
+                  }
+                },
+              },
+            ],
+          },
+        },
+        {
+          host: 'barx.foo.com',
+          http: {
+            paths: [
+              {
+                path: '/',
+                pathType: 'Prefix',
+                backend: {
+                  service: {
+                    name: 'barXservice',
+                    port: {
+                      number: 8000
+                    }
+                  }
+                },
+              },
+            ],
+          },
+        },
+      ],
+    },
   };
 }
 
