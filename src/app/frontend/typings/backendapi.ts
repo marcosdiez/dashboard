@@ -511,16 +511,15 @@ export interface IngressDetail extends ResourceDetail {
 }
 
 export interface IngressSpec {
-  defaultBackend: IngressService;
+  defaultBackend?: IngressDefaultBackend;
   rules?: IngressSpecRule[];
 }
 
-export interface IngressService {
-  service: IngressServiceDetail;
-  resource?: IngressSpecRuleHttpPathBackendResource;
+export interface IngressDefaultBackend {
+  service: IngressService;
 }
 
-export interface IngressServiceDetail {
+export interface IngressService {
   name: string;
   port: IngressServicePort;
 }
@@ -542,7 +541,13 @@ export interface IngressSpecRuleHttp {
 export interface IngressSpecRuleHttpPath {
   path: string;
   pathType: string;
-  backend: IngressService;
+  backend: IngressSpecRuleHttpPathBackend;
+}
+
+export interface IngressSpecRuleHttpPathBackend {
+  serviceName?: string;
+  servicePort?: string | number;
+  resource?: IngressSpecRuleHttpPathBackendResource;
 }
 
 export interface IngressSpecRuleHttpPathBackendResource {

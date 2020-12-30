@@ -61,12 +61,8 @@ class MiniTestComponent {
                 path: '/testpath',
                 pathType: 'Prefix',
                 backend: {
-                  service: {
-                    name: 'test',
-                    port: {
-                      number: 80
-                    }
-                  }
+                  serviceName: 'test',
+                  servicePort: 80,
                 },
               },
             ],
@@ -80,12 +76,8 @@ class MiniTestComponent {
                 path: '/bar',
                 pathType: 'Prefix',
                 backend: {
-                  service: {
-                    name: 'fooBarService',
-                    port: {
-                      number: 80
-                    }
-                  }
+                  serviceName: 'service1',
+                  servicePort: 'a_port_name',
                 },
               },
             ],
@@ -124,12 +116,8 @@ class MaxiTestComponent {
                 path: '/',
                 pathType: 'Prefix',
                 backend: {
-                  service: {
-                    name: 'fooxBarService',
-                    port: {
-                      name: 'fooxBarName'
-                    }
-                  }
+                  serviceName: 'service1',
+                  servicePort: 80,
                 },
               },
             ],
@@ -143,12 +131,8 @@ class MaxiTestComponent {
                 path: '/',
                 pathType: 'Prefix',
                 backend: {
-                  service: {
-                    name: 'barXservice',
-                    port: {
-                      number: 8000
-                    }
-                  }
+                  serviceName: 'service2',
+                  servicePort: 80,
                 },
               },
             ],
