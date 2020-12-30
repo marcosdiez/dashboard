@@ -1810,6 +1810,10 @@
           <context context-type="linenumber">23</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">../src/app/frontend/common/components/ingressrulelist/template.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">../src/app/frontend/common/components/resourcelist/job/template.html</context>
           <context context-type="linenumber">29</context>
         </context-group>
@@ -1896,6 +1900,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">../src/app/frontend/common/components/endpoint/cardlist/template.html</context>
           <context context-type="linenumber">38</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../src/app/frontend/common/components/ingressrulelist/template.html</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="02f397009ef997f78a6ea951356ea5deca2410c8" datatype="html">
@@ -2949,6 +2957,10 @@
       <trans-unit id="2489eefea00931942b91f4a1ae109514b591e2e1" datatype="html">
         <source>Rules</source>
         <target>Règles</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../src/app/frontend/common/components/ingressrulelist/template.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">../src/app/frontend/common/components/policyrule/template.html</context>
           <context context-type="linenumber">20</context>
@@ -4756,6 +4768,10 @@
         <source>Path</source>
         <target>Chemin</target>
         <context-group purpose="location">
+          <context context-type="sourcefile">../src/app/frontend/common/components/ingressrulelist/template.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">../src/app/frontend/resource/cluster/persistentvolume/detail/source/template.html</context>
           <context context-type="linenumber">179</context>
         </context-group>
@@ -4766,6 +4782,30 @@
         <context-group purpose="location">
           <context context-type="sourcefile">../src/app/frontend/resource/cluster/persistentvolume/detail/source/template.html</context>
           <context context-type="linenumber">257</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ffcb4a93798d319faa059cf0a59e13a33e13fc5f" datatype="html">
+        <source>Path Type</source>
+        <target state="new">Path Type</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../src/app/frontend/common/components/ingressrulelist/template.html</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="27634638ac68edd16b5a107ea29e52e1bab80b25" datatype="html">
+        <source>Service Name</source>
+        <target state="new">Service Name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../src/app/frontend/common/components/ingressrulelist/template.html</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="148a9e4494f2b05eadc825c223ca651eee294ebe" datatype="html">
+        <source>Service Port</source>
+        <target state="new">Service Port</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../src/app/frontend/common/components/ingressrulelist/template.html</context>
+          <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
       <trans-unit id="f379dfb7ae583971995b6f684fe5e7649a938157" datatype="html">
