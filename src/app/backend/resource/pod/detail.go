@@ -76,6 +76,9 @@ type Container struct {
 
 	// Command arguments
 	Args []string `json:"args"`
+
+	// Information about mounted volumes
+	VolumeMounts []VolumeMount `json:"volume_mounts"`
 }
 
 // EnvVar represents an environment variable of a container.
@@ -90,6 +93,31 @@ type EnvVar struct {
 	// Note that this is an API struct. This is intentional, as EnvVarSources are plain struct
 	// references.
 	ValueFrom *v1.EnvVarSource `json:"valueFrom"`
+}
+
+type VolumeMountInfo struct {
+	//What kind of mount is this? ConfigMap ? PersistentVolume, etc ?
+	SourceType string `json:"source_type"`
+
+	//The generic name for the Volume (configmap name, persistent volume name, etc)
+	SourceName string `json:"source_name"`
+}
+
+type VolumeMount struct {
+	// Name of the variable.
+	Name string `json:"name"`
+
+	// Is the volume read only ?
+	ReadOnly bool `json:"read_only"`
+
+	// Path within the container at which the volume should be mounted. Must not contain ':'.
+	MountPath string `json:"mount_path"`
+
+	// Path within the volume from which the container's volume should be mounted. Defaults to "" (volume's root).
+	SubPath string `json:"sub_path"`
+
+	// Information about the Volume itself
+	VolumeMountInfo VolumeMountInfo `json:"volume_mount_info"`
 }
 
 // GetPodDetail returns the details of a named Pod from a particular namespace.
@@ -179,6 +207,182 @@ func getPodController(client kubernetes.Interface, nsQuery *common.NamespaceQuer
 	return &ctrl, nil
 }
 
+func populateVolumeSourceInfo(volumes []v1.Volume, volumeName string) VolumeMountInfo {
+	for _, volume := range volumes {
+		if volume.Name == volumeName {
+			// yes, this is exponential, but N is VERY small, so the malloc for creating a named dictionary would probably take longer
+			return populateVolumeSourceInfoHelper(volume)
+		}
+	}
+	return VolumeMountInfo{}
+}
+
+// https://godoc.org/k8s.io/api/core/v1#Volumes
+func populateVolumeSourceInfoHelper(volume v1.Volume) VolumeMountInfo {
+	volumeMountInfo := VolumeMountInfo{}
+	if volume.AWSElasticBlockStore != nil {
+		volumeMountInfo.SourceType = "AWSElasticBlockStore"
+		volumeMountInfo.SourceName = volume.VolumeSource.AWSElasticBlockStore.VolumeID
+		return volumeMountInfo
+	}
+	if volume.AzureDisk != nil {
+		volumeMountInfo.SourceType = "AzureDisk"
+		volumeMountInfo.SourceName = volume.VolumeSource.AzureDisk.DiskName
+		return volumeMountInfo
+	}
+	if volume.AzureFile != nil {
+		volumeMountInfo.SourceType = "AzureFile"
+		volumeMountInfo.SourceName = volume.VolumeSource.AzureFile.ShareName
+		return volumeMountInfo
+	}
+	if volume.CephFS != nil {
+		volumeMountInfo.SourceType = "CephFS"
+		volumeMountInfo.SourceName = volume.VolumeSource.CephFS.Path
+		return volumeMountInfo
+	}
+	if volume.Cinder != nil {
+		volumeMountInfo.SourceType = "Cinder"
+		volumeMountInfo.SourceName = volume.VolumeSource.Cinder.VolumeID
+		return volumeMountInfo
+	}
+	if volume.ConfigMap != nil {
+		volumeMountInfo.SourceType = "ConfigMap"
+		volumeMountInfo.SourceName = volume.VolumeSource.ConfigMap.LocalObjectReference.Name
+		return volumeMountInfo
+	}
+	if volume.CSI != nil {
+		volumeMountInfo.SourceType = "CSI"
+		volumeMountInfo.SourceName = volume.VolumeSource.CSI.Driver
+		return volumeMountInfo
+	}
+	if volume.DownwardAPI != nil {
+		volumeMountInfo.SourceType = "DownwardAPI"
+		return volumeMountInfo
+	}
+	if volume.EmptyDir != nil {
+		volumeMountInfo.SourceType = "EmptyDir"
+		return volumeMountInfo
+	}
+	if volume.Ephemeral != nil {
+		volumeMountInfo.SourceType = "Ephemeral"
+		return volumeMountInfo
+	}
+	if volume.FC != nil {
+		volumeMountInfo.SourceType = "FC"
+		return volumeMountInfo
+	}
+	if volume.FlexVolume != nil {
+		volumeMountInfo.SourceType = "FlexVolume"
+		volumeMountInfo.SourceName = volume.VolumeSource.FlexVolume.Driver
+		return volumeMountInfo
+	}
+	if volume.Flocker != nil {
+		volumeMountInfo.SourceType = "Flocker"
+		volumeMountInfo.SourceName = volume.VolumeSource.Flocker.DatasetName
+		return volumeMountInfo
+	}
+	if volume.GCEPersistentDisk != nil {
+		volumeMountInfo.SourceType = "GCEPersistentDisk"
+		volumeMountInfo.SourceName = volume.VolumeSource.GCEPersistentDisk.PDName
+		return volumeMountInfo
+	}
+	if volume.GitRepo != nil {
+		volumeMountInfo.SourceType = "GitRepo"
+		return volumeMountInfo
+	}
+	if volume.Glusterfs != nil {
+		volumeMountInfo.SourceType = "Glusterfs"
+		volumeMountInfo.SourceName = fmt.Sprintf("%v/%v", volume.VolumeSource.Glusterfs.EndpointsName, volume.VolumeSource.Glusterfs.Path)
+		return volumeMountInfo
+	}
+	if volume.HostPath != nil {
+		volumeMountInfo.SourceType = "HostPath"
+		volumeMountInfo.SourceName = volume.VolumeSource.HostPath.Path
+		return volumeMountInfo
+	}
+	if volume.ISCSI != nil {
+		volumeMountInfo.SourceType = "ISCSI"
+		volumeMountInfo.SourceName = fmt.Sprintf("%v/%v/%v",
+			volume.VolumeSource.ISCSI.TargetPortal,
+			volume.VolumeSource.ISCSI.IQN,
+			volume.VolumeSource.ISCSI.Lun,
+		)
+		return volumeMountInfo
+	}
+	if volume.NFS != nil {
+		volumeMountInfo.SourceType = "NFS"
+		volumeMountInfo.SourceName = fmt.Sprintf("%v/%v", volume.VolumeSource.NFS.Server, volume.VolumeSource.NFS.Path)
+		return volumeMountInfo
+	}
+	if volume.PersistentVolumeClaim != nil {
+		volumeMountInfo.SourceType = "PersistentVolumeClaim"
+		volumeMountInfo.SourceName = volume.VolumeSource.PersistentVolumeClaim.ClaimName
+		return volumeMountInfo
+	}
+	if volume.PhotonPersistentDisk != nil {
+		volumeMountInfo.SourceType = "PhotonPersistentDisk"
+		volumeMountInfo.SourceName = volume.VolumeSource.PhotonPersistentDisk.PdID
+		return volumeMountInfo
+	}
+	if volume.PortworxVolume != nil {
+		volumeMountInfo.SourceType = "PortworxVolume"
+		return volumeMountInfo
+	}
+	if volume.Projected != nil {
+		volumeMountInfo.SourceType = "Projected"
+		return volumeMountInfo
+	}
+	if volume.Quobyte != nil {
+		volumeMountInfo.SourceType = "Quobyte"
+		return volumeMountInfo
+	}
+	if volume.RBD != nil {
+		volumeMountInfo.SourceType = "RBD"
+		volumeMountInfo.SourceName = volume.VolumeSource.RBD.RBDImage
+		return volumeMountInfo
+	}
+	if volume.ScaleIO != nil {
+		volumeMountInfo.SourceType = "ScaleIO"
+		volumeMountInfo.SourceName = fmt.Sprintf("%v/%v/%s",
+			volume.VolumeSource.ScaleIO.Gateway,
+			volume.VolumeSource.ScaleIO.System,
+			volume.VolumeSource.ScaleIO.VolumeName,
+		)
+		return volumeMountInfo
+	}
+	if volume.Secret != nil {
+		volumeMountInfo.SourceType = "Secret"
+		volumeMountInfo.SourceName = volume.VolumeSource.Secret.SecretName
+		return volumeMountInfo
+	}
+	if volume.StorageOS != nil {
+		volumeMountInfo.SourceType = "StorageOS"
+		volumeMountInfo.SourceName = volume.VolumeSource.StorageOS.VolumeName
+		return volumeMountInfo
+	}
+	if volume.VsphereVolume != nil {
+		volumeMountInfo.SourceType = "VsphereVolume"
+		volumeMountInfo.SourceName = volume.VolumeSource.VsphereVolume.VolumePath
+		return volumeMountInfo
+	}
+	return volumeMountInfo
+}
+
+func extractContainerMounts(container v1.Container, pod *v1.Pod) []VolumeMount {
+	volume_mounts := make([]VolumeMount, 0)
+	for _, a_volume_mount := range container.VolumeMounts {
+		volume_mount := VolumeMount{
+			Name:            a_volume_mount.Name,
+			ReadOnly:        a_volume_mount.ReadOnly,
+			MountPath:       a_volume_mount.MountPath,
+			SubPath:         a_volume_mount.SubPath,
+			VolumeMountInfo: populateVolumeSourceInfo(pod.Spec.Volumes, a_volume_mount.Name),
+		}
+		volume_mounts = append(volume_mounts, volume_mount)
+	}
+	return volume_mounts
+}
+
 func extractContainerInfo(containerList []v1.Container, pod *v1.Pod, configMaps *v1.ConfigMapList, secrets *v1.SecretList) []Container {
 	containers := make([]Container, 0)
 	for _, container := range containerList {
@@ -197,12 +401,15 @@ func extractContainerInfo(containerList []v1.Container, pod *v1.Pod, configMaps 
 		}
 		vars = append(vars, evalEnvFrom(container, configMaps, secrets)...)
 
+		volume_mounts := extractContainerMounts(container, pod)
+
 		containers = append(containers, Container{
-			Name:     container.Name,
-			Image:    container.Image,
-			Env:      vars,
-			Commands: container.Command,
-			Args:     container.Args,
+			Name:         container.Name,
+			Image:        container.Image,
+			Env:          vars,
+			Commands:     container.Command,
+			Args:         container.Args,
+			VolumeMounts: volume_mounts,
 		})
 	}
 	return containers
