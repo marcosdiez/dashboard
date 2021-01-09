@@ -864,6 +864,20 @@ export interface Container {
   env: EnvVar[];
   commands: string[];
   args: string[];
+  volume_mounts: VolumeMounts[];
+}
+
+export interface VolumeMounts {
+  name: string;
+  read_only: boolean;
+  mount_path: string;
+  sub_path: string;
+  volume_mount_info: VolumeMountInfo;
+}
+
+export interface VolumeMountInfo {
+  source_type: string;
+  source_name: string;
 }
 
 export interface CRDNames {

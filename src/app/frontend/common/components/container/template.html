@@ -107,4 +107,12 @@ limitations under the License.
       </div>
     </kd-property>
   </div>
+
+  <div content>
+    <kd-volumemounts-list [volumeMounts]="container?.volume_mounts"
+                          [namespace]="namespace"
+                          [initialized]="initialized">
+    </kd-volumemounts-list>
+  </div>
+
 </kd-card>
