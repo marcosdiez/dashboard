@@ -59,13 +59,13 @@ limitations under the License.
                          i18n>Service Name</mat-header-cell>
         <mat-cell *matCellDef="let ingressRuleFlat">
           <ng-container *ngIf="ingressRuleFlat.path.backend.serviceName">
-            <a [routerLink]="getDetailsHref(ingressRuleFlat.path.backend.serviceName, ingressRuleFlat.namespace, 'service')"
+            <a [routerLink]="getDetailsHref(ingressRuleFlat.path.backend.serviceName, 'service')"
                queryParamsHandling="preserve">
               {{ingressRuleFlat.path.backend.serviceName}}
             </a>
           </ng-container>
           <ng-container *ngIf="ingressRuleFlat.path.backend.resource">
-            <a [routerLink]="getDetailsHref(ingressRuleFlat.path.backend.resource.name, ingressRuleFlat.namespace, ingressRuleFlat.path.backend.resource.kind)"
+            <a [routerLink]="getDetailsHref(ingressRuleFlat.path.backend.resource.name, ingressRuleFlat.path.backend.resource.kind)"
                queryParamsHandling="preserve">
               {{ingressRuleFlat.path.backend.resource.apiGroup}}/{{ingressRuleFlat.path.backend.resource.name}}
             </a>

@@ -19,7 +19,6 @@ import {KdStateService} from '../../services/global/state';
 import {GlobalServicesModule} from '../../services/global/module';
 
 interface IngressRuleFlat {
-  namespace: string;
   host?: string;
   path: IngressSpecRuleHttpPath;
 }
@@ -54,7 +53,6 @@ export class IngressRuleFlatListComponent {
 
       ingressSpecRule.http.paths.forEach(path => {
         const ingressRuleFlat: IngressRuleFlat = {
-          namespace: namespace,
           path: path,
         };
         if (host !== null) {
@@ -76,7 +74,7 @@ export class IngressRuleFlatListComponent {
     return tableData;
   }
 
-  getDetailsHref(name: string, namespace: string, kind: string): string {
-    return this.kdState_.href(kind, name, namespace);
+  getDetailsHref(name: string, kind: string): string {
+    return this.kdState_.href(kind, name, this.namespace);
   }
 }
