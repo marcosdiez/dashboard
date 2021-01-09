@@ -905,6 +905,10 @@
           <context context-type="sourcefile">../src/app/frontend/common/components/subject/template.html</context>
           <context context-type="linenumber">26</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../src/app/frontend/common/components/volumemount/template.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="cff1428d10d59d14e45edec3c735a27b5482db59" datatype="html">
         <source>Name</source>
@@ -1036,6 +1040,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">../src/app/frontend/common/components/subject/template.html</context>
           <context context-type="linenumber">38</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../src/app/frontend/common/components/volumemount/template.html</context>
+          <context context-type="linenumber">37</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">../src/app/frontend/resource/workloads/deployment/detail/template.html</context>
@@ -2608,6 +2616,54 @@
         <context-group purpose="location">
           <context context-type="sourcefile">../src/app/frontend/common/components/subject/template.html</context>
           <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4ce231536abb8a636ed804cb0c0d1c85ab8ec9e9" datatype="html">
+        <source>Volume Mounts</source>
+        <target state="new">Volume Mounts</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../src/app/frontend/common/components/volumemount/template.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="de375a026181bbc32e1bd7d8a654ec3b073f9ccf" datatype="html">
+        <source>Read Only</source>
+        <target state="new">Read Only</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../src/app/frontend/common/components/volumemount/template.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="77abbe59a0fb6ed58f736acf8cef054ed267b31e" datatype="html">
+        <source>Mount Path</source>
+        <target state="new">Mount Path</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../src/app/frontend/common/components/volumemount/template.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e395242f9308f706b3b3d2ccbd26069dc110d893" datatype="html">
+        <source>Sub Path</source>
+        <target state="new">Sub Path</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../src/app/frontend/common/components/volumemount/template.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5bf82c3d886212c3115bbff5a2fd0c47daee3032" datatype="html">
+        <source>Source Type</source>
+        <target state="new">Source Type</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../src/app/frontend/common/components/volumemount/template.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="77e3f89cf546684334e05f3d68273c1d4d7c4cc9" datatype="html">
+        <source>Source Name</source>
+        <target state="new">Source Name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../src/app/frontend/common/components/volumemount/template.html</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6d9edf35ea416301631125005b66c9440397176d" datatype="html">
