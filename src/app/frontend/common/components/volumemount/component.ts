@@ -22,7 +22,6 @@ import {GlobalServicesModule} from '../../services/global/module';
   selector: 'kd-volumemounts-list',
   templateUrl: './template.html',
 })
-
 export class VolumeMountComponent {
   @Input() initialized: boolean;
   @Input() volumeMounts: VolumeMounts[];
@@ -36,18 +35,17 @@ export class VolumeMountComponent {
 
   getDataSource(): MatTableDataSource<VolumeMounts> {
     const tableData = new MatTableDataSource<VolumeMounts>();
-    tableData.data = this.volumeMounts
+    tableData.data = this.volumeMounts;
 
     return tableData;
   }
 
   hasPanelInTheDashboard(source_type: string): boolean {
-    var implemented_panels = [ 'ConfigMap', 'Secret', 'PersistentVolumeClaim' ]
-    return implemented_panels.includes(source_type)
+    const implemented_panels = ['ConfigMap', 'Secret', 'PersistentVolumeClaim'];
+    return implemented_panels.includes(source_type);
   }
 
   getDetailsHref(name: string, kind: string): string {
     return this.kdState_.href(kind.toLowerCase(), name, this.namespace);
   }
-
 }
