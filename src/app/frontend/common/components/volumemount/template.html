@@ -15,10 +15,9 @@ limitations under the License.
 -->
 
 <kd-card [initialized]="initialized"
-         role="table">
-  <div title
-       i18n>Volume Mounts</div>
-
+         [expandable]="false"
+         [withTitle]="false"
+         role="inner">
   <div description>
     <div class="kd-inline-property"
          *ngIf="volumeMounts?.length">
@@ -57,7 +56,7 @@ limitations under the License.
         <mat-header-cell *matHeaderCellDef
                          i18n>Sub Path</mat-header-cell>
         <mat-cell *matCellDef="let volume_mount">
-          {{volume_mount.sub_path}}
+          {{volume_mount.sub_path ? volume_mount.sub_path : '-'}}
         </mat-cell>
       </ng-container>
       <ng-container [matColumnDef]="getVolumeMountColumns()[4]">
