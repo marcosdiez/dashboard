@@ -1231,16 +1231,102 @@ export interface SystemBanner {
 }
 
 export interface PersistentVolumeSource {
+  hostPath: HostPathVolumeSource;
+  emptyDir: {};
   gcePersistentDisk: GCEPersistentDiskVolumeSource;
   awsElasticBlockStore: AWSElasticBlockStorageVolumeSource;
-  hostPath: HostPathVolumeSource;
-  glusterfs: GlusterfsVolumeSource;
+  gitRepo: GitRepoVolumeSource;
+  secret: SecretVolumeSource;
   nfs: NFSVolumeSource;
-  rbd: RBDVolumeSource;
   iscsi: ISCSIVolumeSource;
+  glusterfs: GlusterfsVolumeSource;
+  persistentVolumeClaim: PersistentVolumeClaimVolumeSource;
+  rbd: RBDVolumeSource;
+  flexVolume: FlexVolumeSource;
   cinder: CinderVolumeSource;
-  fc: FCVolumeSource;
+  cephFS: CephFSVolumeSource;
   flocker: FlockerVolumeSource;
+  downwardAPI: DownwardAPIVolumeSource;
+  fc: FCVolumeSource;
+  azureFile: AzureFileVolumeSource;
+  configMap: ConfigMapVolumeSource;
+  vsphereVolume: VsphereVirtualDiskVolumeSource;
+  quobyte: QuobyteVolumeSource;
+  // azureDisk: AzureDiskVolumeSource;
+  // photonPersistentDisk: PhotonPersistentDiskVolumeSource;
+  // projected: ProjectedVolumeSource;
+  // portworxVolume: PortworxVolumeSource;
+  // scaleIO: ScaleIOVolumeSource;
+  // storageOS: StorageOSVolumeSource;
+  // csi: CSIVolumeSource;
+}
+
+// export interface EmptyDirVolumeSource {}
+
+export interface GitRepoVolumeSource {
+  repository: string;
+  revision: string;
+  dierctory: string;
+}
+
+export interface SecretVolumeSource {
+  secretName: string;
+  // items
+  defaultMode: number;
+  optional: boolean;
+}
+
+export interface PersistentVolumeClaimVolumeSource {
+  claimName: string;
+  readOnly: boolean;
+}
+
+export interface DownwardAPIVolumeSource {
+  // items
+  defaultMode: number;
+}
+
+export interface AzureFileVolumeSource {
+  secretName: string;
+  shareName: string;
+  readOnly: boolean;
+}
+
+export interface FlexVolumeSource {
+  driver: string;
+  fsType: string;
+  // secretRef
+  readOnly: boolean;
+  // options
+}
+
+export interface ConfigMapVolumeSource {
+  localObjectReference: LocalObjectReference;
+  items: KeyToPath[];
+  defaultMode: number;
+  optional: boolean;
+}
+
+export interface KeyToPath {
+  key: string;
+  path: string;
+  mode: number;
+}
+
+export interface VsphereVirtualDiskVolumeSource {
+  volumePath: string;
+  fsType: string;
+  storagePolicyName: string;
+  storagePolicyID: string;
+}
+
+export interface QuobyteVolumeSource {
+  registry: string;
+  volume: string;
+  readOnly: boolean;
+  user: string;
+  group: string;
+  tenant: string;
 }
 
 export interface TerminalResponse {
