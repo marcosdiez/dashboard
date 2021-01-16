@@ -78,7 +78,7 @@ type Container struct {
 	Args []string `json:"args"`
 
 	// Information about mounted volumes
-	VolumeMounts []VolumeMount `json:"volume_mounts"`
+	VolumeMounts []VolumeMount `json:"volumeMounts"`
 }
 
 // EnvVar represents an environment variable of a container.
@@ -96,11 +96,11 @@ type EnvVar struct {
 }
 
 type VolumeMountInfo struct {
-	//What kind of mount is this? ConfigMap ? PersistentVolume, etc ?
-	SourceType string `json:"source_type"`
+	// Informs the kind of mount: ConfigMap, Secret, PersistentVolume, etc ...
+	SourceType string `json:"sourceType"`
 
-	//The generic name for the Volume (configmap name, persistent volume name, etc)
-	SourceName string `json:"source_name"`
+	// The generic name for the Volume (configmap name, persistent volume name, etc)
+	SourceName string `json:"sourceName"`
 }
 
 type VolumeMount struct {
@@ -108,16 +108,16 @@ type VolumeMount struct {
 	Name string `json:"name"`
 
 	// Is the volume read only ?
-	ReadOnly bool `json:"read_only"`
+	ReadOnly bool `json:"readOnly"`
 
 	// Path within the container at which the volume should be mounted. Must not contain ':'.
-	MountPath string `json:"mount_path"`
+	MountPath string `json:"mountPath"`
 
 	// Path within the volume from which the container's volume should be mounted. Defaults to "" (volume's root).
-	SubPath string `json:"sub_path"`
+	SubPath string `json:"subPath"`
 
 	// Information about the Volume itself
-	VolumeMountInfo VolumeMountInfo `json:"volume_mount_info"`
+	VolumeMountInfo VolumeMountInfo `json:"volumeMountInfo"`
 }
 
 // GetPodDetail returns the details of a named Pod from a particular namespace.

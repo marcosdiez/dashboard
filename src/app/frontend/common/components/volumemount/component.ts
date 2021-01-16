@@ -40,9 +40,9 @@ export class VolumeMountComponent {
     return tableData;
   }
 
-  hasPanelInTheDashboard(source_type: string): boolean {
+  hasPanelInTheDashboard(sourceType: string): boolean {
     const implemented_panels = ['ConfigMap', 'Secret', 'PersistentVolumeClaim'];
-    return implemented_panels.includes(source_type);
+    return implemented_panels.includes(sourceType);
   }
 
   getDetailsHref(name: string, kind: string): string {
