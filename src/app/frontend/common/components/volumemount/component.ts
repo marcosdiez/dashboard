@@ -14,7 +14,7 @@
 
 import {Component, Input} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
-import {VolumeMounts} from '@api/backendapi';
+import {VolumeMounts, PersistentVolumeSource} from '@api/backendapi';
 import {KdStateService} from '../../services/global/state';
 import {GlobalServicesModule} from '../../services/global/module';
 
@@ -48,4 +48,56 @@ export class VolumeMountComponent {
   getDetailsHref(name: string, kind: string): string {
     return this.kdState_.href(kind.toLowerCase(), name, this.namespace);
   }
+
+  getTypeFromVolume(volume: PersistentVolumeSource): string {
+    if (volume.hostPath ) { return "HostPath"; }
+    if (volume.emptyDir ) { return "EmptyDir"; }
+    if (volume.gcePersistentDisk ) { return "GcePersistentDisk"; }
+    if (volume.awsElasticBlockStore ) { return "AwsElasticBlockStore"; }
+    if (volume.gitRepo ) { return "GitRepo"; }
+    if (volume.secret ) { return "Secret"; }
+    if (volume.nfs ) { return "NFS"; }
+    if (volume.iscsi ) { return "iSCSI"; }
+    if (volume.glusterfs ) { return "GlusterFS"; }
+    if (volume.persistentVolumeClaim ) { return "PersistentVolumeClaim"; }
+    if (volume.rbd ) { return "RBD"; }
+    if (volume.flexVolume ) { return "FlexVolume"; }
+    if (volume.cinder ) { return "Cinder"; }
+    if (volume.cephFS ) { return "CephFS"; }
+    if (volume.flocker ) { return "Flocker"; }
+    if (volume.downwardAPI ) { return "DownwardAPI"; }
+    if (volume.fc ) { return "FC"; }
+    if (volume.azureFile ) { return "AzureFile"; }
+    if (volume.configMap ) { return "ConfigMap"; }
+    if (volume.vsphereVolume ) { return "vSphereVolume"; }
+    if (volume.quobyte ) { return "Quobyte"; }
+    return "unknown";
+  }
+
+  getNameFromVolume(volume: PersistentVolumeSource): string {
+    if (volume.hostPath ) { return volume.hostPath.path; }
+    if (volume.emptyDir ) { return '-'; }
+    if (volume.gcePersistentDisk ) { return volume.gcePersistentDisk.pdName; }
+    if (volume.awsElasticBlockStore ) { return volume.awsElasticBlockStore.volumeID; }
+    if (volume.gitRepo ) { return volume.gitRepo.repository + '/' + volume.gitRepo.directory + ':' + volume.gitRepo.revision; }
+    if (volume.secret ) { return volume.secret.secretName; }
+    if (volume.nfs ) { return volume.nfs.server + '/' + volume.nfs.path; }
+    if (volume.iscsi ) { return volume.iscsi.targetPortal + '/' + volume.iscsi.iqn + '/' + volume.iscsi.lun; }
+    if (volume.glusterfs ) { return volume.glusterfs.endpoints + '/' + volume.glusterfs.path; }
+    if (volume.persistentVolumeClaim ) { return volume.persistentVolumeClaim.claimName; }
+    if (volume.rbd ) { return volume.rbd.image; }
+    if (volume.flexVolume ) { return volume.flexVolume.driver }
+    if (volume.cinder ) { return volume.cinder.volumeID; }
+    if (volume.cephFS ) { return volume.cephFS.path; }
+    if (volume.flocker ) { return volume.flocker.datasetName; }
+    // if (volume.downwardAPI ) { return '-'; }
+    // if (volume.fc ) { return '-'; }
+    if (volume.azureFile ) { return volume.azureFile.shareName; }
+    if (volume.configMap ) { return volume.configMap.name; }
+    if (volume.vsphereVolume ) { return volume.vsphereVolume.volumePath; }
+    if (volume.quobyte ) { return volume.quobyte.volume; }
+
+    return "-";
+  }
+
 }

@@ -872,12 +872,7 @@ export interface VolumeMounts {
   readOnly: boolean;
   mountPath: string;
   subPath: string;
-  volumeMountInfo: VolumeMountInfo;
-}
-
-export interface VolumeMountInfo {
-  sourceType: string;
-  sourceName: string;
+  volume: PersistentVolumeSource;
 }
 
 export interface CRDNames {
@@ -1230,28 +1225,30 @@ export interface SystemBanner {
   severity: string;
 }
 
+// https://godoc.org/k8s.io/api/core/v1#Volumes
 export interface PersistentVolumeSource {
-  hostPath: HostPathVolumeSource;
-  emptyDir: {};
-  gcePersistentDisk: GCEPersistentDiskVolumeSource;
-  awsElasticBlockStore: AWSElasticBlockStorageVolumeSource;
-  gitRepo: GitRepoVolumeSource;
-  secret: SecretVolumeSource;
-  nfs: NFSVolumeSource;
-  iscsi: ISCSIVolumeSource;
-  glusterfs: GlusterfsVolumeSource;
-  persistentVolumeClaim: PersistentVolumeClaimVolumeSource;
-  rbd: RBDVolumeSource;
-  flexVolume: FlexVolumeSource;
-  cinder: CinderVolumeSource;
-  cephFS: CephFSVolumeSource;
-  flocker: FlockerVolumeSource;
-  downwardAPI: DownwardAPIVolumeSource;
-  fc: FCVolumeSource;
-  azureFile: AzureFileVolumeSource;
-  configMap: ConfigMapVolumeSource;
-  vsphereVolume: VsphereVirtualDiskVolumeSource;
-  quobyte: QuobyteVolumeSource;
+  name: string;
+  hostPath?: HostPathVolumeSource;
+  emptyDir?: {};
+  gcePersistentDisk?: GCEPersistentDiskVolumeSource;
+  awsElasticBlockStore?: AWSElasticBlockStorageVolumeSource;
+  gitRepo?: GitRepoVolumeSource;
+  secret?: SecretVolumeSource;
+  nfs?: NFSVolumeSource;
+  iscsi?: ISCSIVolumeSource;
+  glusterfs?: GlusterfsVolumeSource;
+  persistentVolumeClaim?: PersistentVolumeClaimVolumeSource;
+  rbd?: RBDVolumeSource;
+  flexVolume?: FlexVolumeSource;
+  cinder?: CinderVolumeSource;
+  cephFS?: CephFSVolumeSource;
+  flocker?: FlockerVolumeSource;
+  downwardAPI?: DownwardAPIVolumeSource;
+  fc?: FCVolumeSource;
+  azureFile?: AzureFileVolumeSource;
+  configMap?: ConfigMapVolumeSource;
+  vsphereVolume?: VsphereVirtualDiskVolumeSource;
+  quobyte?: QuobyteVolumeSource;
   // azureDisk: AzureDiskVolumeSource;
   // photonPersistentDisk: PhotonPersistentDiskVolumeSource;
   // projected: ProjectedVolumeSource;
@@ -1266,7 +1263,7 @@ export interface PersistentVolumeSource {
 export interface GitRepoVolumeSource {
   repository: string;
   revision: string;
-  dierctory: string;
+  directory: string;
 }
 
 export interface SecretVolumeSource {
@@ -1301,7 +1298,7 @@ export interface FlexVolumeSource {
 }
 
 export interface ConfigMapVolumeSource {
-  localObjectReference: LocalObjectReference;
+  name: string;
   items: KeyToPath[];
   defaultMode: number;
   optional: boolean;
