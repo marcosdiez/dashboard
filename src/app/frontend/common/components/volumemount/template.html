@@ -73,7 +73,7 @@ limitations under the License.
           <ng-container *ngIf="hasPanelInTheDashboard(getTypeFromVolume(volumeMount.volume))">
             <a [routerLink]="getDetailsHref(getNameFromVolume(volumeMount.volume), getTypeFromVolume(volumeMount.volume))"
                queryParamsHandling="preserve">
-               {{getNameFromVolume(volumeMount.volume)}}
+              {{getNameFromVolume(volumeMount.volume)}}
             </a>
           </ng-container>
           <ng-container *ngIf="!hasPanelInTheDashboard(getTypeFromVolume(volumeMount.volume))">
