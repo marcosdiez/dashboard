@@ -49,21 +49,23 @@ export class IngressRuleFlatListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: {tlsList: SimpleChange}): void {
-    if (changes.tlsList.currentValue) {
-      this.tlsHostMap_.clear();
-      []
-        .concat(
-          ...(changes.tlsList.currentValue as IngressSpecTLS[]).map(spec =>
-            spec.hosts.map(
-              host =>
-                ({
-                  host: host,
-                  tlsSecretName: spec.secretName,
-                } as IngressSpecTLSFlat)
+    if (changes.tlsList !== undefined ) {
+      if (changes.tlsList.currentValue) {
+        this.tlsHostMap_.clear();
+        []
+          .concat(
+            ...(changes.tlsList.currentValue as IngressSpecTLS[]).map(spec =>
+              spec.hosts.map(
+                host =>
+                  ({
+                    host: host,
+                    tlsSecretName: spec.secretName,
+                  } as IngressSpecTLSFlat)
+              )
             )
           )
-        )
-        .forEach((specFlat: IngressSpecTLSFlat) => this.tlsHostMap_.set(specFlat.host, specFlat.tlsSecretName));
+          .forEach((specFlat: IngressSpecTLSFlat) => this.tlsHostMap_.set(specFlat.host, specFlat.tlsSecretName));
+      }
     }
   }
 
