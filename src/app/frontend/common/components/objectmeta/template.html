@@ -75,9 +75,10 @@ limitations under the License.
                    [ngClass]="'object-meta-ownerReferences'">
         <div key
              i18n>Owner</div>
-        <div value *ngFor="let ownerReference of objectMeta?.ownerReferences">
+        <div value
+             *ngFor="let ownerReference of objectMeta?.ownerReferences">
           <a [routerLink]="getObjectHref(ownerReference.kind, ownerReference.name)"
-          queryParamsHandling="preserve">{{ownerReference.kind}}/{{ownerReference.name}}</a>
+             queryParamsHandling="preserve">{{ownerReference.kind}}/{{ownerReference.name}}</a>
         </div>
       </kd-property>
       <kd-property *ngIf="objectMeta?.labels"
