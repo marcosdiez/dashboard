@@ -1424,7 +1424,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/common/components/objectmeta/template.html</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="linenumber">88</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/common/components/resourcelist/configmap/template.html</context>
@@ -2560,12 +2560,20 @@
           <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="3715596725146409911" datatype="html">
+        <source>Owner</source>
+        <target state="new">Owner</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frontend/common/components/objectmeta/template.html</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="8286804311024638809" datatype="html">
         <source>Annotations</source>
         <target>어노테이션</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/common/components/objectmeta/template.html</context>
-          <context context-type="linenumber">88</context>
+          <context context-type="linenumber">98</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5103064776441485656" datatype="html">
