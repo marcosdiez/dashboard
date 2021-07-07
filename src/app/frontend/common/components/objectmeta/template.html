@@ -71,6 +71,15 @@ limitations under the License.
              i18n>UID</div>
         <div value>{{objectMeta?.uid}}</div>
       </kd-property>
+      <kd-property *ngIf="objectMeta?.ownerReferences"
+                   [ngClass]="'object-meta-ownerReferences'">
+        <div key
+             i18n>Owner</div>
+        <div value *ngFor="let ownerReference of objectMeta?.ownerReferences">
+          <a [routerLink]="getObjectHref(ownerReference.kind, ownerReference.name)"
+          queryParamsHandling="preserve">{{ownerReference.kind}}/{{ownerReference.name}}</a>
+        </div>
+      </kd-property>
       <kd-property *ngIf="objectMeta?.labels"
                    fxFlex="100"
                    [ngClass]="'object-meta-labels'">

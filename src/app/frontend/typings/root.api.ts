@@ -31,6 +31,12 @@ export interface ObjectMeta {
   annotations?: StringMap;
   creationTimestamp?: string;
   uid?: string;
+  ownerReferences?: OwnerReference[];
+}
+
+export interface OwnerReference {
+  kind: string;
+  name: string;
 }
 
 export interface JobStatus {
